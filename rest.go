@@ -39,7 +39,7 @@ func get(client *http.Client, url string, output interface{}) error {
 		return err
 	}
 
-	return decodeJson(body, &output)
+	return decodeJSON(body, &output)
 }
 
 func checkErrors(response *http.Response) error {
@@ -67,7 +67,7 @@ func decompress(response *http.Response) (io.Reader, error) {
 	return reader, nil
 }
 
-func decodeJson(body io.Reader, into interface{}) error {
+func decodeJSON(body io.Reader, into interface{}) error {
 	jsonDecoder := json.NewDecoder(body)
 
 	return jsonDecoder.Decode(&into)
