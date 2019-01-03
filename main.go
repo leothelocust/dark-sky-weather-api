@@ -43,7 +43,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"weather": response})
 	})
 
-	err := endless.ListenAndServe("localhost:8080", router)
+	err := endless.ListenAndServe("0.0.0.0:80", router)
 	if err != nil {
 		log.Fatalf("Error: %s\n", err)
 	}
