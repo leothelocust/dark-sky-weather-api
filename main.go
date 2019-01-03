@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/fvbock/endless"
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,10 +43,7 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"weather": response})
 	})
 
-	err := endless.ListenAndServe("0.0.0.0:80", router)
-	if err != nil {
-		log.Fatalf("Error: %s\n", err)
-	}
+	log.Fatal(autotls.Run(router, "weather.l3vi.co"))
 }
 
 func currentWeather(lat, long float64, apikey string) (ForecastResponse, error) {
