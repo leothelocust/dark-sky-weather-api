@@ -8,7 +8,7 @@ Type=simple
 User=root
 Group=root
 LimitNOFILE=1024
-Environment="DARK_SKY_API_KEY=\"\""
+Environment="DARK_SKY_API_KEY="
 
 Restart=on-failure
 RestartSec=10
