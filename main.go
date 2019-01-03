@@ -18,6 +18,10 @@ func main() {
 
 	router := gin.Default()
 
+	router.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusTemporaryRedirect, "https://github.com/leothelocust/dark-sky-weather-api")
+	})
+
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
