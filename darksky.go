@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/google/go-querystring/query"
@@ -33,6 +34,7 @@ func (d *darkSky) Forecast(request ForecastRequest) (ForecastResponse, error) {
 
 	url := d.buildRequestURL(request)
 
+	log.Printf("DarkSkyUrl: %s\n", url)
 	err := get(d.Client, url, &response)
 
 	return response, err
