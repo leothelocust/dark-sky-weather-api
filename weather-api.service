@@ -5,16 +5,16 @@ After=network.target
  
 [Service]
 Type=simple
-User=weatherapi
-Group=weatherapi
+User=root
+Group=root
 LimitNOFILE=1024
+Environment="DARK_SKY_API_KEY=\"\""
 
 Restart=on-failure
 RestartSec=10
-startLimitIntervalSec=60
 
 WorkingDirectory=/root/go/src/weather-api
-ExecStart=/root/go/src/weather-api/weather-api
+ExecStart=/bin/bash -c "/root/go/src/weather-api/weather-api"
 
 # make sure log directory exists and owned by syslog
 PermissionsStartOnly=true

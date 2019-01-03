@@ -36,6 +36,7 @@ func main() {
 		response, err := currentWeather(lat, long, apikey)
 		if err != nil {
 			c.JSON(http.StatusExpectationFailed, gin.H{"error": err.Error()})
+			log.Printf("Error: %s\n", err)
 			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
