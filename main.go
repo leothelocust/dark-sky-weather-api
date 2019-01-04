@@ -21,6 +21,9 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusTemporaryRedirect, "https://github.com/leothelocust/dark-sky-weather-api")
 	})
+	router.GET("/favicon.ico", func(c *gin.Context) {
+		c.File("assets/favicon.ico")
+	})
 
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
