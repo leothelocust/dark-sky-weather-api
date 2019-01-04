@@ -11,7 +11,6 @@ import (
 
 func get(client *http.Client, url string, output interface{}) error {
 	req, err := http.NewRequest("GET", url, nil)
-
 	if err != nil {
 		return err
 	}
@@ -20,7 +19,6 @@ func get(client *http.Client, url string, output interface{}) error {
 	req.Header.Add("Accept-Encoding", "gzip")
 
 	response, err := client.Do(req)
-
 	if err != nil {
 		return err
 	}
@@ -28,13 +26,11 @@ func get(client *http.Client, url string, output interface{}) error {
 	defer response.Body.Close()
 
 	err = checkErrors(response)
-
 	if err != nil {
 		return err
 	}
 
 	body, err := decompress(response)
-
 	if err != nil {
 		return err
 	}

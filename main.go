@@ -5,7 +5,10 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
+	"github.com/gin-contrib/cache"
+	"github.com/gin-contrib/cache/persistence"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
@@ -29,7 +32,10 @@ func main() {
 		c.String(http.StatusOK, "pong")
 	})
 
-	router.GET("/current_weather/:lat/:long", func(c *gin.Context) {
+	cacheDuration := time.Minute * 15
+	cacheStore := persistence.NewInMemoryStore(cacheDuration)
+
+	router.GET("/current_weather/:lat/:long", cache.CachePage(cacheStore, cacheDuration, func(c *gin.Context) {
 		lat, err := strconv.ParseFloat(c.Params.ByName("lat"), 64)
 		long, err := strconv.ParseFloat(c.Params.ByName("long"), 64)
 		if err != nil {
@@ -44,9 +50,13 @@ func main() {
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.JSON(http.StatusOK, gin.H{"weather": response})
-	})
+	}))
 
-	log.Fatal(autotls.Run(router, "weather.l3vi.co"))
+	if os.Getenv("GIN_MODE") == "release" {
+		log.Fatal(autotls.Run(router, "weather.l3vi.co"))
+	} else {
+		log.Fatal(router.Run(":80"))
+	}
 }
 
 func currentWeather(lat, long float64, apikey string) (ForecastResponse, error) {
