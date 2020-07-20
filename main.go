@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-contrib/cache"
 	"github.com/gin-contrib/cache/persistence"
-	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
 
@@ -57,11 +56,8 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"weather": response})
 	}))
 
-	if os.Getenv("GIN_MODE") == "release" {
-		log.Fatal(autotls.Run(router, "weather.l3vi.co"))
-	} else {
-		log.Fatal(router.Run(":3010"))
-	}
+
+	log.Fatal(router.Run(":3010"))
 }
 
 func currentWeather(lat, long float64, apikey string) (ForecastResponse, error) {
