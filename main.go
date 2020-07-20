@@ -55,7 +55,7 @@ func main() {
 	if os.Getenv("GIN_MODE") == "release" {
 		log.Fatal(autotls.Run(router, "weather.l3vi.co"))
 	} else {
-		log.Fatal(router.Run(":80"))
+		log.Fatal(router.Run(":3010"))
 	}
 }
 
