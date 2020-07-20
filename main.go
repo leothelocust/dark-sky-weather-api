@@ -27,6 +27,8 @@ func main() {
 	router.GET("/favicon.ico", func(c *gin.Context) {
 		c.File("assets/favicon.ico")
 	})
+	
+	router.Static("/public", "./public")
 
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
