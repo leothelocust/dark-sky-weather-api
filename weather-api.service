@@ -9,7 +9,7 @@ User=root
 Group=root
 LimitNOFILE=1024
 Environment="DARK_SKY_API_KEY="
-Environment="GIN_MODE=release"
+Environment="GIN_MODE=dev"
 
 Restart=on-failure
 RestartSec=10
