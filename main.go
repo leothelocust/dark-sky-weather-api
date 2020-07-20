@@ -28,6 +28,8 @@ func main() {
 		c.File("assets/favicon.ico")
 	})
 	
+	router.Static("/public", "./public")
+	
 	router.GET("/.well-known/acme-challenge/:file", func(c *gin.Context) {
 		fullpath := "public/.well-known/acme-challenge/" + c.Param("file")
 		c.File(fullpath)
